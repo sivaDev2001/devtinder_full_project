@@ -1,59 +1,93 @@
 const express = require('express')
+const database = require('./configuration/database')
+const User = require("./models/models")
 
 const app = express()
-// app.get("/user",(req,res,next)=>{
-//     console.log('first handler')
-//     next('route')
-//     next()
-// },(req,res)=>{
-//     console.log('second route handler')
-// })
-
-// app.get('/user',(req,res)=>{
-//     console.log('second router')
-//     res.send('enter the id')
-// })
-
-// app.get('/user',(req,res,next)=>{
-//     const err = new Error('there is an error')
-//     next(err)
-// })
-
-// app.use((err,req,res,next)=>{
-//     res.send(err.message)
-// })
+app.use(express.json())
 
 
-// app.use((req,res,next)=>{
-//     console.log('first middleware')
-//     next()
-// })
-// app.use((req,res,next)=>{
-//     console.log('second middleware')
-//     next(new Error('there was an error'))
-// })
-// app.use((req,res,next)=>{
-//     console.log('third middleware')
-//     next()
-// })
-// app.use((err,req,res,next)=>{
-//     console.log('fourth middleware')
-//     res.send(err.message)
-// })
-
-
-//handling errors
-
-app.get('/getdata',(req,res)=>{
-    throw new Error('hello') //when we throw error immediatly it jumbs to the error handling middleware
-    res.send('user data') 
+//insert data
+app.post('/user',async(req,res)=>{
+   
+    try{
+        const insert = await User.insertOne(req.body)
+        console.log(insert)
+        res.send('data inserted successfully')
+    }
+    catch(err)
+    {
+        res.status(400).send('data not sent'+ err)
+    }
 })
 
-app.use((err,req,res,next)=>{ //this is error handling middleware it will always have 4 parameters
-    console.log(err)
-    res.send(err.message)
+//get data 
+app.get('/getuser',async(req,res)=>{
+    const {email} = req.body
+    try{
+        const users = await User.find({email:email})
+        if(!users)
+        {
+            res.status(404).send('no user exists in the database')
+        }
+        else{
+            res.send(users)
+        }
+    }
+    catch(err)
+    {
+        res.status(500).send('something went wrong')
+    }
+
 })
 
-app.listen(3000,()=>{
-    console.log('app is successfully running')
+//delete data
+app.delete('/deleteuser',async(req,res)=>{
+    const userId = req.body.userId
+    try
+    {
+        const user = await User.findByIdAndDelete(userId)
+        if(!user)
+        {
+            res.send('no user exists')
+        }
+        else{
+            res.send('successfully deleted')
+        }
+    }
+    catch(err)
+    {
+        res.status(500).send('something went wrong')
+    }
+});
+
+//update the data
+
+app.patch('/updateuser/:email',async(req,res)=>{
+    try{
+    const userId = req.params
+    const data = req.body
+    const user = await User.findOneAndUpdate(userId,data)
+    if(!user)
+    {
+        res.status(404).send('user not found')
+    }
+    else{
+    res.send('user updated successfully')
+    }
+    }
+    catch(err)
+    {
+        res.status(500).send('something went wrong')
+    }
+
+})
+
+database().then(()=>{
+    console.log('database connected succussfully')
+    app.listen(3000,()=>{
+        console.log('app running successfully')
+    })
+})
+.catch((err)=>{
+    console.log('database not connected')
 })
