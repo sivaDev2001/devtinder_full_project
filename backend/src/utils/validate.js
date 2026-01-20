@@ -27,14 +27,19 @@ const checkCredentials = async(req)=>{
     {
         throw new Error("Invalid Email")
     }
-    const checkEmail = await User.findOne({email:email})
-    if(!checkEmail)
+    const checkUser = await User.findOne({email:email})
+    if(!checkUser)
     {
         throw new Error("Invalid Email")
     }
-    const checkpassword = await bcrypt.compare(password,checkEmail.password)
+    const checkpassword = await checkUser.checkPassword(password)
 
-    return checkpassword
+    const loginInfo = {
+        checkUser,
+        checkpassword:checkpassword
+    }
+
+    return loginInfo
 }
 
 module.exports={isValidated,checkCredentials}

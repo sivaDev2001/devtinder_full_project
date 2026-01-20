@@ -1,27 +1,25 @@
-const adminauthentication = (req,res,next)=>{
-    const token = "hello"
-    const auth = token==="hello"
-    console.log('admin authentication')
-    if(!auth)
-    {
-        res.status(401).send('unautherized')
-    }
-    else{
+const User = require('../src/models/models.js')
+const jwt = require('jsonwebtoken')
+
+const userauthentication = async(req,res,next)=>{
+    try{
+        const {token} = req.cookies
+        if(!token){  //this case will never true this is just only for some safety purpose only
+            throw new Error('unauthenticated user!!! please log-in')
+        }
+        const user_id = await jwt.verify(token,"secretkey")
+        const user_info = await User.findById(user_id.id)
+        req.user=user_info
         next()
     }
-}
-
-const userauthentication = (req,res,next)=>{
-    const token="hello"
-    const auth = token==="hello"
-    if(!auth)
-    {
-        res.status(401).send('unauthorized')
+    catch(err){
+        if(err.message==="jwt expired"){
+            res.status(400).send("unauthenticated user!!! please log-in")
+        }
+        res.status(400).send(err.message)
     }
-    next()
 }
 
 module.exports={
-    adminauthentication,
     userauthentication
 }

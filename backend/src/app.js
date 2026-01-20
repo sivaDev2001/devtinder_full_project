@@ -1,14 +1,18 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 const database = require('./configuration/database')
 const User = require("./models/models")
 const {isValidated,checkCredentials} = require('./utils/validate.js')
+const {userauthentication} = require('../middlewares/auth.js')
 
 const app = express()
 app.use(express.json())
+app.use(cookieParser())
 
 
 //insert data
-app.post('/user',async(req,res)=>{
+app.post('/signin',async(req,res)=>{
    
     try{
        const hashedPassword = await  isValidated(req) //helper function
@@ -36,8 +40,10 @@ app.post('/user',async(req,res)=>{
 app.post('/login',async(req,res)=>{
     try{
         const isUser = await checkCredentials(req)  //helper function
-        if(isUser)
+        if(isUser.checkpassword)
         {
+            const jwtToken =await isUser.checkUser.getjwt()
+            res.cookie("token",jwtToken)  //cookie that has jwttoken wrapped inside
             res.send("user logged-in")
         }
         else{
@@ -47,6 +53,30 @@ app.post('/login',async(req,res)=>{
     catch(err)
     {
         res.send("ERROR : " + err.message)
+    }
+})
+
+//profile api
+app.get('/profile',userauthentication,async(req,res)=>{
+    try{
+        res.send(req.user)
+    }
+    catch(err){
+        res.status(401).send("ERROR : " + err.message)
+    }
+})
+
+app.post('/reqconnection',userauthentication,async(req,res)=>{
+    try{
+        const {firstName} = req.user
+        if(!firstName)
+        {
+            throw new Error("unautherized user!!!,please login")
+        }
+        res.send(`${firstName} requesting you for the connection`)
+    }
+    catch(err){
+        res.status(400).send(err.message)
     }
 })
 
