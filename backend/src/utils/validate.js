@@ -32,7 +32,7 @@ const checkCredentials = async(req)=>{
     {
         throw new Error("Invalid Email")
     }
-    const checkpassword = await checkUser.checkPassword(password)
+    const checkpassword = await checkUser.checkPassword(password)  //from schema methods
 
     const loginInfo = {
         checkUser,

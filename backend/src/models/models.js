@@ -50,6 +50,16 @@ const userSchema = new Schema({
     skills:{
         type:[String]
     },
+    profilepic:{
+        type:String,
+        default:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Cat_07464_kalamis_safinaz.jpg/250px-Cat_07464_kalamis_safinaz.jpg",
+        validate(value){
+            if(!validator.isURL(value))
+            {
+                throw new Error("Image path is not valid")
+            }
+        }
+    },
     about:{
         type:String,
         default:"About Yourself"
@@ -61,7 +71,7 @@ const userSchema = new Schema({
 
 userSchema.methods.getjwt=async function(){
     const id=this._id
-    const token = await jwt.sign({id},"secretkey",{expiresIn:'0h'})
+    const token = await jwt.sign({id},"secretkey",{expiresIn:'1h'})
     return token
 }
 

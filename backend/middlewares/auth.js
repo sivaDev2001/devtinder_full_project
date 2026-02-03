@@ -16,7 +16,10 @@ const userauthentication = async(req,res,next)=>{
         if(err.message==="jwt expired"){
             res.status(400).send("unauthenticated user!!! please log-in")
         }
-        res.status(400).send(err.message)
+        else
+        {
+            res.status(400).send(err.message)
+        }
     }
 }
 

@@ -1,84 +1,29 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
-const jwt = require('jsonwebtoken')
 const database = require('./configuration/database')
 const User = require("./models/models")
-const {isValidated,checkCredentials} = require('./utils/validate.js')
-const {userauthentication} = require('../middlewares/auth.js')
+const authRouter = require('./routes/auth.js')
+const profileRouter = require('./routes/profile.js')
+const requestRouter = require('./routes/request.js')
+const userRouter = require('./routes/user.js')
+
+
 
 const app = express()
 app.use(express.json())
 app.use(cookieParser())
 
+app.use('/',authRouter)
+app.use('/',profileRouter)
+app.use('/',requestRouter)
+app.use('/',userRouter)
 
-//insert data
-app.post('/signin',async(req,res)=>{
-   
-    try{
-       const hashedPassword = await  isValidated(req) //helper function
-        const {firstName,lastName,email,password} = req.body
-        
-        if(req.body.skills?.length>3)
-        {
-            throw new Error('more than 3 skills are not allowed')
-        }
-        const insert = await User.insertOne({
-            firstName,
-            lastName,
-            email,
-            password:hashedPassword,
-        },{runValidators:true})
-        console.log(insert)
-        res.send('data inserted successfully')
-    }
-    catch(err)
-    {
-        res.status(400).send('data not sent : '+ err.message)
-    }
-});
 
-app.post('/login',async(req,res)=>{
-    try{
-        const isUser = await checkCredentials(req)  //helper function
-        if(isUser.checkpassword)
-        {
-            const jwtToken =await isUser.checkUser.getjwt()
-            res.cookie("token",jwtToken)  //cookie that has jwttoken wrapped inside
-            res.send("user logged-in")
-        }
-        else{
-            throw new Error("Invalid password")
-        }
-    }
-    catch(err)
-    {
-        res.send("ERROR : " + err.message)
-    }
-})
 
-//profile api
-app.get('/profile',userauthentication,async(req,res)=>{
-    try{
-        res.send(req.user)
-    }
-    catch(err){
-        res.status(401).send("ERROR : " + err.message)
-    }
-})
 
-app.post('/reqconnection',userauthentication,async(req,res)=>{
-    try{
-        const {firstName} = req.user
-        if(!firstName)
-        {
-            throw new Error("unautherized user!!!,please login")
-        }
-        res.send(`${firstName} requesting you for the connection`)
-    }
-    catch(err){
-        res.status(400).send(err.message)
-    }
-})
+
+
+
 
 //get data 
 app.get('/getuser',async(req,res)=>{
@@ -126,7 +71,9 @@ app.patch('/updateuser/:email',async(req,res)=>{
     try{
 
     const userId = req.params
+    console.log(userId)
     const data = req.body
+    console.log(data)
     const ALLOWED = ["age","gender","skill","about"]
     const is_Allowed = Object.keys(data).every(k=>ALLOWED.includes(k))
     if(!is_Allowed)
