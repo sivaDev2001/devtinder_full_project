@@ -36,6 +36,7 @@ const userSchema = new Schema({
     },
     age:{
         type:Number,
+        required:true,
         min:18
     },
     gender:{
@@ -71,7 +72,10 @@ const userSchema = new Schema({
 
 userSchema.methods.getjwt=async function(){
     const id=this._id
-    const token = await jwt.sign({id},"secretkey",{expiresIn:'1h'})
+    const token = await jwt.sign({id},"secretkey",
+        {
+            expiresIn:'1h',
+        })
     return token
 }
 

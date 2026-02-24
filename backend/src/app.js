@@ -6,10 +6,16 @@ const authRouter = require('./routes/auth.js')
 const profileRouter = require('./routes/profile.js')
 const requestRouter = require('./routes/request.js')
 const userRouter = require('./routes/user.js')
-
+const cors = require('cors')
 
 
 const app = express()
+app.use(cors(
+    {
+        origin:"http://localhost:5173",
+        credentials:true //to send cookies to the browser without this the browser will not get the cookies
+    }
+))
 app.use(express.json())
 app.use(cookieParser())
 

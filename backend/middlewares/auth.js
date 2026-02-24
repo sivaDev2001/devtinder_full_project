@@ -5,7 +5,7 @@ const userauthentication = async(req,res,next)=>{
     try{
         const {token} = req.cookies
         if(!token){  //this case will never true this is just only for some safety purpose only
-            throw new Error('unauthenticated user!!! please log-in')
+            return res.status(401).json({message:"unauthenticated user!!! please login"})
         }
         const user_id = await jwt.verify(token,"secretkey")
         const user_info = await User.findById(user_id.id)

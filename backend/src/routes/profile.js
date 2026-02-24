@@ -19,16 +19,19 @@ profileRouter.patch('/profile/edit',userauthentication,async(req,res)=>{
     try{
         const allowedUpdates = ["firstName","lastName","age","gender","skills","profilepic","about"] //data sanitization
         const is_Allowed = Object.keys(req.body).every(e=>allowedUpdates.includes(e))
-        console.log(is_Allowed)
         if(!is_Allowed)
         {
-            throw new Error("Not allowed to update ")
+            throw new Error("Invalid Credentials!!! Please check")
         }
    
         Object.keys(req.body).forEach(keys=>req.user[keys] = req.body[keys]) //here updating the document
     
         await req.user.save()  //.save() function will update the document if the user_id already exists
-        res.send('profile updated succussfully')
+        res.status(200).json({
+            message:"Successfully updated!!",
+            data:req.user
+        })
+
     }
     catch(err)
     {

@@ -82,11 +82,11 @@ userRouter.get('/user/feed',userauthentication,async(req,res)=>{
             set.add(id.toUserId.toString())
         })
         const filterUser = await User.find({
-            _id:{$nin:Array.from(set)}
+            _id:{$nin:Array.from(set)} ///Array.from will convert array like object or string into array
         }).select("firstName lastName email age gender skills profilepic about").skip(page).limit(limit)
         if(!filterUser)
         {
-            return res.status(400).json({
+            return res.status(401).json({
                 message:"no feeds are available",
                 data:filterUser
             })

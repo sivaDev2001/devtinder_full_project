@@ -30,7 +30,7 @@ const checkCredentials = async(req)=>{
     const checkUser = await User.findOne({email:email})
     if(!checkUser)
     {
-        throw new Error("Invalid Email")
+        throw new Error("Invalid Email Address!!!")
     }
     const checkpassword = await checkUser.checkPassword(password)  //from schema methods
 
