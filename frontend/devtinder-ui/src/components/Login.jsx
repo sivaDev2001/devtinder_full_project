@@ -1,9 +1,8 @@
 import { useState } from "react"
-import axios from "axios"
+import axiosInstance from "../utils/axiosConfig"
 import { useDispatch } from "react-redux"
 import {addUser} from '../utils/slices'
 import { useNavigate } from "react-router-dom"
-import { BASE_URL } from "../utils/constants"
 
 const Login = () => {
   const [email, setEmail] = useState("kohli@gmail.com")
@@ -13,12 +12,9 @@ const Login = () => {
   const [error,setError] = useState("")
   const handleLoginButton = async () => {
     try {
-      const res = await axios.post(BASE_URL+"/login",
+      const res = await axiosInstance.post("/login",
         {
           email, password
-        },
-        {
-          withCredentials: true
         })
         userDispatch(addUser(res.data.data))
         feedNavigate('/feed')

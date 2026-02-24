@@ -35,7 +35,11 @@ authRouter.post('/login', async (req, res) => {
         const isUser = await checkCredentials(req)  //helper function
         if (isUser.checkpassword) {
             const jwtToken = await isUser.checkUser.getjwt()  //
-            res.cookie("token", jwtToken)  //cookie that has jwttoken wrapped inside
+            res.cookie("token", jwtToken,{
+                httpOnly:true,
+                secure:true,
+                sameSite:'none'
+            })  //cookie that has jwttoken wrapped inside
             res.json({
                 message: "user logged-in successfully",
                 data: isUser.checkUser

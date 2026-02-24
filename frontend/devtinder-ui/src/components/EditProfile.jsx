@@ -1,8 +1,7 @@
-import axios from "axios"
+import axiosInstance from "../utils/axiosConfig"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { BASE_URL } from "../utils/constants"
 import { addUser } from "../utils/slices"
 import Toast from "./Toast"
 
@@ -26,12 +25,9 @@ const EditProfile = () => {
 
   const handleEditProfile = async () => {
     try {
-      const res = await axios.patch(BASE_URL + "/profile/edit",
+      const res = await axiosInstance.patch("/profile/edit",
         {
           firstName, lastName, age, gender, profilepic, about
-        },
-        {
-          withCredentials: true
         }
       );
       updatedUserDispatch(addUser(res.data.data))
