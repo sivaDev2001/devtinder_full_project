@@ -7,7 +7,7 @@ const userauthentication = async(req,res,next)=>{
         if(!token){  //this case will never true this is just only for some safety purpose only
             return res.status(401).json({message:"unauthenticated user!!! please login"})
         }
-        const user_id = await jwt.verify(token,"secretkey")
+        const user_id = await jwt.verify(token,process.env.JWT_SECRET)
         const user_info = await User.findById(user_id.id)
         req.user=user_info
         next()

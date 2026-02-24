@@ -12,8 +12,8 @@ const cors = require('cors')
 const app = express()
 app.use(cors(
     {
-        origin:"http://localhost:5173",
-        credentials:true //to send cookies to the browser without this the browser will not get the cookies
+        origin: process.env.CORS_ORIGIN,
+        credentials: true
     }
 ))
 app.use(express.json())
@@ -104,8 +104,8 @@ app.patch('/updateuser/:email',async(req,res)=>{
 
 database().then(()=>{
     console.log('database connected succussfully')
-    app.listen(3000,()=>{
-        console.log('app running successfully')
+    app.listen(process.env.PORT || 3000,()=>{
+        console.log(`app running successfully on port ${process.env.PORT || 3000}`)
     })
 })
 .catch((err)=>{
