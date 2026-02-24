@@ -13,7 +13,7 @@ authRouter.post('/signin', async (req, res) => {
         if (req.body.skills?.length > 3) {
             throw new Error('more than 3 skills are not allowed')
         }
-        const insert = await User.insertOne({
+        const insert = await User.create({
             firstName,
             lastName,
             email,
@@ -22,7 +22,7 @@ authRouter.post('/signin', async (req, res) => {
             gender,
             profilepic,
             skills
-        }, { runValidators: true })
+        })
         res.send('data inserted successfully')
     }
     catch (err) {

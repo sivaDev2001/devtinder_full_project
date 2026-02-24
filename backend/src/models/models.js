@@ -3,6 +3,7 @@ const validator = require('validator')
 const {Schema} = mongoose
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+require('dotenv').config()
 
 const userSchema = new Schema({
     firstName:{
@@ -72,7 +73,7 @@ const userSchema = new Schema({
 
 userSchema.methods.getjwt=async function(){
     const id=this._id
-    const token = await jwt.sign({id},"secretkey",
+    const token = await jwt.sign({id},process.env.JWT_SECRET,
         {
             expiresIn:'1h',
         })
