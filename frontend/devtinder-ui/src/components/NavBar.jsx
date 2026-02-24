@@ -40,11 +40,14 @@ const NavBar = () => {
                 className="menu menu-sm dropdown-content bg-base-300 rounded-box z-1 mt-4 w-52 p-2 shadow">
                 <li>
                   <div className="flex justify-between items-center w-full">
-                    <Link to="/profile">Profile</Link>
-
-                    <Link to="/editProfile" className="badge badge-sm">
-                      Edit
-                    </Link>
+                    <div>
+                      <Link to="/profile">Profile</Link>
+                    </div>
+                    <div>
+                      <Link to="/editProfile" className="badge badge-sm">
+                        Edit
+                      </Link>
+                    </div>
                   </div>
                 </li>
 
