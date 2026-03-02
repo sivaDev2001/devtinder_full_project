@@ -1,7 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axiosInstance from "../utils/axiosConfig"
 import { useDispatch } from "react-redux"
-import {addUser} from '../utils/slices'
+import {addUser,removeUser} from '../utils/slices'
 import { useNavigate } from "react-router-dom"
 
 const Login = () => {
@@ -24,6 +24,9 @@ const Login = () => {
       setError(err?.response?.data || "Some credentials is wrong!!")
     }
   }
+  useEffect(()=>{
+    userDispatch(removeUser())
+  },[])
   return (
     <div className="flex justify-center my-5">
       <div className="card card-border bg-base-300 w-96">

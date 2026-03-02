@@ -9,6 +9,7 @@ import  appStore, { persistor }  from './utils/appStore.js'
 import Feed from './components/Feed.jsx'
 import EditProfile from './components/EditProfile.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
+import Connections from './components/Connections.jsx'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
             <Route path='/login' element={<Login />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/editProfile' element={<EditProfile/>}/>
+            <Route path='/connections' element={<Connections/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

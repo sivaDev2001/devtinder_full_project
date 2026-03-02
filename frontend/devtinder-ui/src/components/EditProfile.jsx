@@ -21,13 +21,33 @@ const EditProfile = () => {
   const [showSuccess, setShowSuccess] = useState("")
   const [isSuccess, setIsSuccess] = useState(false)
   const [values, setValues] = useState({})
+  const [skill, setSkill] = useState("")
+  const [skills, setSkills] = useState(user.skills || [])
 
+  const addSkills = () => {
+    if (skill.trim() !== "") {
+      setSkills(prevSkills => {
+        if (prevSkills.includes(skill.trim())) {
+          alert("skill already added!!")
+          return prevSkills
+        }
+        else {
+          return [...prevSkills, skill.trim()]
+        }
+      }
+      )
+      setSkill("")
+    }
+    else if (skill.trim() === "") {
+      alert("Enter any skills to add!!")
+    }
+  }
 
   const handleEditProfile = async () => {
     try {
       const res = await axiosInstance.patch("/profile/edit",
         {
-          firstName, lastName, age, gender, profilepic, about
+          firstName, lastName, age, gender, profilepic, about, skills
         }
       );
       updatedUserDispatch(addUser(res.data.data))
@@ -36,8 +56,8 @@ const EditProfile = () => {
       setShowSuccess(message)
       setValues(() => {
         const value = {
-          data:showSuccess || message,
-          color:"green"
+          data: showSuccess || message,
+          color: "green"
         }
         return value
       })
@@ -132,6 +152,34 @@ const EditProfile = () => {
                     </fieldset>
                   </div>
 
+                  {/* currently coding*/}
+                  <div className="">
+                    <fieldset className="fieldset">
+                      <legend className="fieldset-legend">Skills :</legend>
+                      <input type="text"
+                        value={skill}
+                        onChange={(e) => setSkill(e.target.value)} className="input"
+                        placeholder={!skill ? 'Enter your skills' : ''} />
+                      <div className="card-actions justify-center my-3">
+                        <button className="btn btn-primary"
+                          onClick={addSkills}>Add Skill</button>
+                      </div>
+                    </fieldset>
+
+                    <div className="">
+                      <fieldset className="fieldset">
+                        <legend className="fieldset-legend">Your Skills :</legend>
+                        <div className="flex gap-2 flex-wrap">
+                          {skills.map((value, index) => (
+                            <span key={index} className="badge badge-primary">
+                              {value}
+                            </span>
+                          ))}
+                        </div>
+                      </fieldset>
+                    </div>
+                  </div>
+
                   <div className="">
                     <fieldset>
                       <legend className="fieldset-legend">About</legend>
@@ -168,6 +216,8 @@ const EditProfile = () => {
                   <p className="my-3"><span className="font-semibold">Last Name : </span> {lastName}</p>
                   <p className="my-3"><span className="font-semibold">Age : </span> {age}</p>
                   <p className="my-3"><span className="font-semibold">Gender : </span> {gender}</p>
+                  <p className="my-3"><span className="font-semibold">Skills : </span>
+                    {skills.join(', ')}</p>
                   <p className="my-3"><span className="font-semibold">About : </span>
                     {about}</p>
                 </div>

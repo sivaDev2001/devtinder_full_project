@@ -6,11 +6,13 @@ import {
 import storage from 'redux-persist/lib/storage'
 import userSlice from './slices'
 import feedSlice from './feedSlices'
+import connectionSlice from './connections'
 
 const rootReducer = combineReducers(
     {
         user: userSlice,
-        feed: feedSlice
+        feed: feedSlice,
+        connections: connectionSlice
     }
 )
 const persistConfiguration = {

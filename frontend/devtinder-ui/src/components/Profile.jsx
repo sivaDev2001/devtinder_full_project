@@ -28,6 +28,7 @@ const Profile = () => {
                 <p className="my-3"><span className="font-semibold">Last Name : </span> {user.lastName}</p>
                 <p className="my-3"><span className="font-semibold">Age : </span> {user.age}</p>
                 <p className="my-3"><span className="font-semibold">Gender : </span> {user.gender}</p>
+                <p className="my-3"><span className="font-semibold">Skills: </span>{user.skills.join(", ")}</p>
                 <p className="my-3"><span className="font-semibold">About : </span>
                   {user.about}</p>
               </div>

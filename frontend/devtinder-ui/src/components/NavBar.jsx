@@ -2,16 +2,19 @@ import axiosInstance from "../utils/axiosConfig"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { removeUser } from "../utils/slices"
+import { removeConnections } from "../utils/connections"
 
 
 const NavBar = () => {
   const userData = useSelector(state => state.user)
   const removeUserDispatch = useDispatch()
+  const removeUserConnections = useDispatch()
   const navigate = useNavigate()
   const handleLogOut = async () => {
     try {
       await axiosInstance.post('/logout')
       removeUserDispatch(removeUser())
+      removeUserConnections(removeConnections())
       navigate('/login')
     }
     catch (err) {
@@ -32,7 +35,7 @@ const NavBar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Virat_Kohli_in_PMO_New_Delhi.jpg/250px-Virat_Kohli_in_PMO_New_Delhi.jpg" />
+                    src={userData.profilepic} />
                 </div>
               </div>
               <ul
@@ -52,7 +55,7 @@ const NavBar = () => {
                 </li>
 
 
-                <li><a>Settings</a></li>
+                <li><Link to={'/connections'}>Connections</Link></li>
                 <li><a onClick={handleLogOut}>Logout</a></li>
               </ul>
             </div>
