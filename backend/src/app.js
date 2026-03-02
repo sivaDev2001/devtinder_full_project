@@ -105,7 +105,7 @@ app.patch('/updateuser/:email',async(req,res)=>{
 
 database().then(()=>{
     console.log('database connected succussfully')
-    app.listen(process.env.PORT || 3000 ,()=>{
+    app.listen(process.env.PORT || PORT ,()=>{
         console.log(`app running successfully on port ${process.env.PORT}`)
     })
 })

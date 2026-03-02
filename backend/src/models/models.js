@@ -42,6 +42,7 @@ const userSchema = new Schema({
     },
     gender:{
         type:String,
+        required:true,
         validate(value){
             if(!["male","female","others"].includes(value))
             {
@@ -50,6 +51,7 @@ const userSchema = new Schema({
         }
     },
     skills:{
+        required:true,
         type:[String]
     },
     profilepic:{

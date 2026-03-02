@@ -48,9 +48,10 @@ userRouter.get('/user/view/connections',userauthentication,async(req,res)=>{
             }
             return user.fromUserId
         })
+        const filterFriendInfo = friendInfo.filter(e=>e!==null) //to remove null values from the array
         res.status(200).json({
             message:"connections fetched successfully",
-            data:friendInfo
+            data:filterFriendInfo
         })
     }
     catch(err)
