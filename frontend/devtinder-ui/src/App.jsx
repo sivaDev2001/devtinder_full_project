@@ -10,6 +10,7 @@ import Feed from './components/Feed.jsx'
 import EditProfile from './components/EditProfile.jsx'
 import { PersistGate } from 'redux-persist/integration/react'
 import Connections from './components/Connections.jsx'
+import Requests from './components/Requests.jsx'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/editProfile' element={<EditProfile/>}/>
             <Route path='/connections' element={<Connections/>}/>
+            <Route path='/requests' element={<Requests/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

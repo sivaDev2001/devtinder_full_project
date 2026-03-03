@@ -11,7 +11,7 @@ userRouter.get('/user/view/requests',userauthentication,async(req,res)=>{
         const findRequests = await UserRequestConnection.find({
             toUserId:loggedInUser._id,
             status:"interested"
-        }).populate('fromUserId','firstName lastName').select("fromUserId")
+        }).populate('fromUserId','firstName lastName age gender skills profilepic').select("fromUserId")
         if(!findRequests)
         {
             throw new Error("There is no requests for you")
