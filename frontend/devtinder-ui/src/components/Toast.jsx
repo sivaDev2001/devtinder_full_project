@@ -2,7 +2,6 @@ import React from 'react'
 
 const Toast = ({message}) => {
     const {data,color} = message
-    console.log(color)
   return (
     <div>
         <div className="toast toast-top toast-center">
