@@ -77,13 +77,15 @@ userRouter.get('/user/feed',userauthentication,async(req,res)=>{
                 {toUserId:loggedInUser._id}
             ]
         }).select("fromUserId toUserId") //select only the selective fields from the document
+
         const set = new Set()
         connectedUsers.forEach(id=>{
             set.add(id.fromUserId.toString())
             set.add(id.toUserId.toString())
         })
+        const excludeIds = [...Array.from(set),loggedInUser._id.toString()] //to exclude the logged in user id from the feed
         const filterUser = await User.find({
-            _id:{$nin:Array.from(set)} ///Array.from will convert array like object or string into array
+            _id:{$nin:excludeIds} ///Array.from will convert array like object or string into array
         }).select("firstName lastName email age gender skills profilepic about").skip(page).limit(limit)
         if(!filterUser)
         {

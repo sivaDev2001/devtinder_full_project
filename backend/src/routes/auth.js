@@ -23,7 +23,16 @@ authRouter.post('/signin', async (req, res) => {
             profilepic,
             skills
         })
-        res.send('data inserted successfully')
+        const cookies = await insert.getjwt()
+        res.cookie("token",cookies,{
+            httpOnly:true,
+            secure:true,
+            sameSite:"none"
+        })
+        res.json({
+            message:"user registered successfully",
+            data:insert
+        })
     }
     catch (err) {
         res.status(400).send('data not sent : ' + err.message)
