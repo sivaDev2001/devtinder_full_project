@@ -25,7 +25,6 @@ profileRouter.patch('/profile/edit',userauthentication,async(req,res)=>{
         }
    
         Object.keys(req.body).forEach(keys=>req.user[keys] = req.body[keys]) //here updating the document
-        console.log(req.user.skills)
         const set = new Set(req.user.skills)  //removing dublicate skills if any)
         req.user.skills = [...set]
         await req.user.save()  //.save() function will update the document if the user_id already exists
