@@ -1,32 +1,36 @@
 import { useEffect, useState } from "react"
 import axiosInstance from "../utils/axiosConfig"
 import { useDispatch } from "react-redux"
-import {addUser,removeUser} from '../utils/slices'
+import { addUser, removeUser } from '../utils/slices'
 import { useNavigate } from "react-router-dom"
+import { removeFeed } from "../utils/feedSlices"
+import { persistor } from "../utils/appStore"
 
 const Login = () => {
   const [email, setEmail] = useState("kohli@gmail.com")
   const [password, setPassword] = useState("kohli@123")
   const userDispatch = useDispatch()
   const feedNavigate = useNavigate()
-  const [error,setError] = useState("")
+  const [error, setError] = useState("")
   const handleLoginButton = async () => {
     try {
       const res = await axiosInstance.post("/login",
         {
           email, password
         })
-        userDispatch(addUser(res.data.data))
-        feedNavigate('/feed')
+      userDispatch(addUser(res.data.data))
+
+      feedNavigate('/feed')
     }
-    catch(err)
-    {
+    catch (err) {
       setError(err?.response?.data || "Some credentials is wrong!!")
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     userDispatch(removeUser())
-  },[])
+    userDispatch(removeFeed())
+    persistor.purge()
+  }, [])
   return (
     <div className="flex justify-center my-5">
       <div className="card card-border bg-base-300 w-96">

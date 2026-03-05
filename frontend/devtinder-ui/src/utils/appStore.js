@@ -8,13 +8,15 @@ import userSlice from './slices'
 import feedSlice from './feedSlices'
 import connectionSlice from './connections'
 import requestsSlice from './requestsSlice'
+import paginationSlice from './paginationSlice'
 
 const rootReducer = combineReducers(
     {
         user: userSlice,
         feed: feedSlice,
         connections: connectionSlice,
-        requests: requestsSlice
+        requests: requestsSlice,
+        pagination: paginationSlice
     }
 )
 const persistConfiguration = {

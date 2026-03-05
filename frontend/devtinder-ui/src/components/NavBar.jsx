@@ -3,18 +3,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { removeUser } from "../utils/slices"
 import { removeConnections } from "../utils/connections"
+import { removeFeed } from "../utils/feedSlices"
 
 
 const NavBar = () => {
   const userData = useSelector(state => state.user)
-  const removeUserDispatch = useDispatch()
-  const removeUserConnections = useDispatch()
+  const Dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogOut = async () => {
     try {
       await axiosInstance.post('/logout')
-      removeUserDispatch(removeUser())
-      removeUserConnections(removeConnections())
+      Dispatch(removeUser())
+      Dispatch(removeConnections())
+      Dispatch(removeFeed())
       navigate('/login')
     }
     catch (err) {
