@@ -18,7 +18,7 @@ const SignUp = () => {
     const [skill, setSkill] = useState("")
     const [profilepic, setProfilePic] = useState("")
     const [about, setAbout] = useState("")
-    const [skills, setSkills] = useState([])
+    const [skills, setSkills] = useState([""])
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [showToast, setShowToast] = useState(false)
@@ -61,9 +61,16 @@ const SignUp = () => {
             setTimeout(() => {
                 setShowToast(false)
             }, 3000)
-        }
+        }   
         catch (err) {
-            console.error(err)
+            if(err.status===400)
+            {
+                setShowToast(true)
+                setToastMessage(err.response.data.message)
+                setTimeout(() => {
+                    setShowToast(false)
+                }, 3000)
+            }
         }
     }
 
