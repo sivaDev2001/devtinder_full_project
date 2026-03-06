@@ -11,8 +11,9 @@ const userSchema = new Schema({
         required:true
     },
     lastName:{
-        type:String
-    },
+        type:String,
+        required:true
+       },
     email:{
         type:String,
         required:true,

@@ -10,8 +10,8 @@ authRouter.post('/signin', async (req, res) => {
         const hashedPassword = await isValidated(req) //helper function
         const { firstName, lastName, email, password, age, gender, profilepic, skills } = req.body
 
-        if (req.body.skills?.length > 3) {
-            throw new Error('more than 3 skills are not allowed')
+        if (req.body.skills?.length > 4) {
+            throw new Error('more than 4 skills are not allowed')
         }
         const insert = await User.create({
             firstName,
@@ -35,7 +35,11 @@ authRouter.post('/signin', async (req, res) => {
         })
     }
     catch (err) {
-        res.status(400).send('data not sent : ' + err.message)
+        res.status(400).json(
+            {
+                message:err.message
+            }
+        )
     }
 });
 
