@@ -9,16 +9,16 @@ import { FaRegEye } from "react-icons/fa"
 import { addUser } from '../utils/slices'
 
 const SignUp = () => {
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [age, setAge] = useState("")
-    const [gender, setGender] = useState("")
+    const [firstName, setFirstName] = useState("Harry")
+    const [lastName, setLastName] = useState("potter")
+    const [email, setEmail] = useState("harry@gmail.com")
+    const [password, setPassword] = useState("harry@123")
+    const [age, setAge] = useState("22")
+    const [gender, setGender] = useState("male")
     const [skill, setSkill] = useState("")
-    const [profilepic, setProfilePic] = useState("")
-    const [about, setAbout] = useState("")
-    const [skills, setSkills] = useState([""])
+    const [profilepic, setProfilePic] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Cat_07464_kalamis_safinaz.jpg/250px-Cat_07464_kalamis_safinaz.jpg")
+    const [about, setAbout] = useState("hi")
+    const [skills, setSkills] = useState(["javascript"])
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [showToast, setShowToast] = useState(false)
@@ -61,10 +61,16 @@ const SignUp = () => {
             setTimeout(() => {
                 setShowToast(false)
             }, 3000)
-        }   
+        }
         catch (err) {
-            if(err.status===400)
-            {
+            if (err.response.data.code) {
+                setShowToast(true)
+                setToastMessage("Email already registerd!!")
+                setTimeout(() => {
+                    setShowToast(false)
+                }, 3000)
+            }
+            else if (err.status === 400) {
                 setShowToast(true)
                 setToastMessage(err.response.data.message)
                 setTimeout(() => {
@@ -187,7 +193,7 @@ const SignUp = () => {
                                 <input type="text"
                                     value={skill}
                                     onChange={(e) => setSkill(e.target.value)} className="input"
-                                    placeholder={!skill ? 'Enter your skills' : ''} />
+                                    placeholder={!skill ? 'Enter only 4 skills' : ''} />
                                 <div className="card-actions justify-center my-2">
                                     <button className="btn btn-primary"
                                         onClick={addSkills}>Add Skill</button>
