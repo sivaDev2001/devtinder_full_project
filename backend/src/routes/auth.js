@@ -37,7 +37,8 @@ authRouter.post('/signin', async (req, res) => {
     catch (err) {
         res.status(400).json(
             {
-                message:err.message
+                message:err.message,
+                code:err.code
             }
         )
     }
