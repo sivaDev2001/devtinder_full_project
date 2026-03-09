@@ -85,10 +85,10 @@ const EditProfile = () => {
     <>
       {
         user && (
-          <div className="flex justify-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row justify-center items-start gap-4 px-4">
 
-            <div className="flex justify-center my-5">
-              <div className="card card-border bg-base-300 w-96">
+            <div className="flex justify-center my-5 w-full md:w-auto">
+              <div className="card card-border bg-base-300 w-full md:w-96">
                 <div className="card-body">
                   <h2 className="card-title justify-center">Profile</h2>
 
@@ -189,7 +189,7 @@ const EditProfile = () => {
             </div>
 
             {/* second container */}
-            <div className="card w-96 bg-base-300 shadow-xl my-5">
+            <div className="card w-full md:w-96 bg-base-300 shadow-xl my-5">
               <figure>
                 <img
                   src={profilepic}
