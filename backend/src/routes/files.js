@@ -41,8 +41,8 @@ const upload = multer({storage})
 fileRouter.patch('/images/upload',userauthentication,upload.single('profilepic'),async(req,res)=>{
     try{
         const userData = req.user
-        const profilepic_URL = IMAGE_URL ? `${IMAGE_URL}/${req.file.filename}` :
-        `http://localhost:5000/images/${req.file.filename}`
+        const profilepic_URL = `${IMAGE_URL}/${req.file.filename}`
+        // `http://localhost:5000/images/${req.file.filename}`
         userData.profilepic = profilepic_URL
         await userData.save()
         res.status(200).json({
