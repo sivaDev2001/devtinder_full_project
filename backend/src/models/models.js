@@ -57,7 +57,7 @@ const userSchema = new Schema({
     },
     profilepic:{
         type:String,
-        default:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Cat_07464_kalamis_safinaz.jpg/250px-Cat_07464_kalamis_safinaz.jpg",
+        default:"https://img.daisyui.com/images/profile/demo/spiderperson@192.webp",
         validate(value){
             if(!validator.isURL(value))
             {

@@ -2,13 +2,15 @@ const express = require('express')
 const { isValidated, checkCredentials } = require('../utils/validate.js')
 const User = require("../models/models")
 
+
 const authRouter = express.Router()
 
 //insert data
 authRouter.post('/signin', async (req, res) => {
     try {
         const hashedPassword = await isValidated(req) //helper function
-        const { firstName, lastName, email, password, age, gender, profilepic, skills } = req.body
+        const { firstName, lastName, email, password, age, gender,profilepic, skills } = req.body
+
 
         if (req.body.skills?.length > 4) {
             throw new Error('more than 4 skills are not allowed')

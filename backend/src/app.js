@@ -7,6 +7,7 @@ const authRouter = require('./routes/auth.js')
 const profileRouter = require('./routes/profile.js')
 const requestRouter = require('./routes/request.js')
 const userRouter = require('./routes/user.js')
+const fileRouter = require('./routes/files.js')
 const cors = require('cors')
 
 
@@ -19,11 +20,13 @@ app.use(cors(
 ))
 app.use(express.json())
 app.use(cookieParser())
+app.use('/images',express.static('src/public/images'))  //to serve static files like images from public folder
 
 app.use('/',authRouter)
 app.use('/',profileRouter)
 app.use('/',requestRouter)
 app.use('/',userRouter)
+app.use('/',fileRouter)
 
 
 
