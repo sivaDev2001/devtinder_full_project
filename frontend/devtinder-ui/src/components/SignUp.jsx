@@ -16,7 +16,7 @@ const SignUp = () => {
     const [age, setAge] = useState("22")
     const [gender, setGender] = useState("male")
     const [skill, setSkill] = useState("")
-    const [profilepic, setProfilePic] = useState("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Cat_07464_kalamis_safinaz.jpg/250px-Cat_07464_kalamis_safinaz.jpg")
+    const [profilepic, setProfilePic] = useState("https://img.daisyui.com/images/profile/demo/spiderperson@192.webp")
     const [about, setAbout] = useState("hi")
     const [skills, setSkills] = useState(["javascript"])
     const dispatch = useDispatch()
@@ -24,6 +24,8 @@ const SignUp = () => {
     const [showToast, setShowToast] = useState(false)
     const [toastMessage, setToastMessage] = useState("")
     const [eye, setEye] = useState(false)
+
+
 
     const addSkills = () => {
         if (skill.trim() !== "") {
@@ -57,10 +59,11 @@ const SignUp = () => {
             dispatch(addUser(res.data.data))
             setShowToast(true)
             setToastMessage(res.data.message)
-            navigate('/feed')
             setTimeout(() => {
                 setShowToast(false)
-            }, 3000)
+                navigate('/profilePicture')
+            }, 1000)
+            
         }
         catch (err) {
             if (err.response.data.code) {
@@ -144,7 +147,7 @@ const SignUp = () => {
                         <div className="">
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Age :</legend>
-                                <input type="text"
+                                <input type="number"
                                     placeholder='Enter your age'
                                     value={age}
                                     onChange={(e) => setAge(e.target.value)} className="input" />
@@ -176,17 +179,6 @@ const SignUp = () => {
                             </label>
                         </div>
 
-                        <div className="">
-                            <fieldset className="fieldset">
-                                <legend className="fieldset-legend">ProfilePic :</legend>
-                                <input type="text"
-                                    placeholder='Enter your profile pic url'
-                                    value={profilepic}
-                                    onChange={(e) => setProfilePic(e.target.value)} className="input" />
-                            </fieldset>
-                        </div>
-
-                        {/* currently coding*/}
                         <div className="">
                             <fieldset className="fieldset">
                                 <legend className="fieldset-legend">Skills :</legend>
@@ -245,6 +237,7 @@ const SignUp = () => {
                     </div>
                 </div>
             )}
+
         </div>
     )
 }

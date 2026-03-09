@@ -8,6 +8,7 @@ import { removeFeed } from "../utils/feedSlices"
 
 const NavBar = () => {
   const userData = useSelector(state => state.user)
+  const requestsData = useSelector(state => state.requests)
   const Dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogOut = async () => {
@@ -23,7 +24,7 @@ const NavBar = () => {
     }
   }
   return (
-    <div className="navbar bg-base-300 text-base-content shadow-sm">
+    <div className="navbar bg-neutral text-base-content shadow-sm">
       <div className="flex-1">
         <Link to={'/feed'} className="btn btn-ghost text-xl">DevTinder</Link>
       </div>
@@ -57,7 +58,16 @@ const NavBar = () => {
 
 
                 <li><Link to={'/connections'}>Connections</Link></li>
-                <li><Link to={'/requests'}>Friend Requests</Link></li>
+                <li>
+                  <div className="flex items-center justify-between w-full">
+                    <Link to={'/requests'}>Friend Requests</Link>
+                    {requestsData && requestsData.length > 0 && (
+                      <div className="w-5 h-5 bg-red-400 rounded-full ml-2 flex items-center justify-center">
+                        <span className="text-xs text-white">{requestsData.length}</span>
+                      </div>
+                    )}
+                  </div>
+                </li>
                 <li><a onClick={handleLogOut}>Logout</a></li>
               </ul>
             </div>

@@ -12,6 +12,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import Connections from './components/Connections.jsx'
 import Requests from './components/Requests.jsx'
 import SignUp from './components/SignUp.jsx'
+import ProfilePicture from './components/ProfilePicture.jsx'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path='/connections' element={<Connections/>}/>
             <Route path='/requests' element={<Requests/>}/>
             <Route path='/signup' element={<SignUp/>}/>
+            <Route path='/profilePicture' element={<ProfilePicture/>}/>
             <Route path='*' element={<h1 className='text-center text-3xl my-5'>404 Not Found!!</h1>} /> {/*for any route which is not defined in the above routes, this will be rendered */}
           </Route>
         </Routes>

@@ -9,6 +9,7 @@ import feedSlice from './feedSlices'
 import connectionSlice from './connections'
 import requestsSlice from './requestsSlice'
 import paginationSlice from './paginationSlice'
+import profileImageSlice from './profileImageSlice'
 
 const rootReducer = combineReducers(
     {
@@ -16,7 +17,8 @@ const rootReducer = combineReducers(
         feed: feedSlice,
         connections: connectionSlice,
         requests: requestsSlice,
-        pagination: paginationSlice
+        pagination: paginationSlice,
+        profileImage:profileImageSlice
     }
 )
 const persistConfiguration = {

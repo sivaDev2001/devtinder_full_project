@@ -112,7 +112,7 @@ const EditProfile = () => {
                   <div className="">
                     <fieldset className="fieldset">
                       <legend className="fieldset-legend">Age</legend>
-                      <input type="text"
+                      <input type="number"
                         value={age}
                         onChange={(e) => setAge(e.target.value)} className="input" />
                     </fieldset>
@@ -141,15 +141,6 @@ const EditProfile = () => {
                       />
                       <span>Female</span>
                     </label>
-                  </div>
-
-                  <div className="">
-                    <fieldset className="fieldset">
-                      <legend className="fieldset-legend">ProfilePic</legend>
-                      <input type="text"
-                        value={profilepic}
-                        onChange={(e) => setProfilePic(e.target.value)} className="input" />
-                    </fieldset>
                   </div>
 
                   {/* currently coding*/}
