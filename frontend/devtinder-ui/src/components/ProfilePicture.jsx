@@ -3,9 +3,12 @@ import { useState } from 'react'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../utils/slices'
 
 
 const ProfilePicture = () => {
+    const dispatch = useDispatch()
     const [image, setImage] = useState(null)
     const [showToast,setShowToast] = useState(false)
     const [toastMessage,setToastMessage]= useState("")
@@ -28,6 +31,7 @@ const ProfilePicture = () => {
             const res = await axios.patch(BASE_URL + '/images/upload', formData, {
                 withCredentials: true,
             })
+            dispatch(addUser(res.data.data))
             setShowToast(true)
             setToastMessage(res.data.message)
             setTimeout(() => {
