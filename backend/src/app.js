@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const path = require('path')
 const database = require('./configuration/database')
 const User = require("./models/models")
 const authRouter = require('./routes/auth.js')
@@ -20,7 +21,7 @@ app.use(cors(
 ))
 app.use(express.json())
 app.use(cookieParser())
-app.use('/images',express.static('src/public/images'))  //to serve static files like images from public folder
+app.use('/images',express.static(path.join(__dirname,'./public/images')))  //to serve static files like images from public folder
 
 app.use('/',authRouter)
 app.use('/',profileRouter)

@@ -2,10 +2,18 @@ const express = require('express')
 const {userauthentication} = require('../../middlewares/auth.js')
 const multer = require('multer')
 const path = require('path')
+const fs = require('fs')
 const User = require('../models/models.js')
 const { IMAGE_URL } = require('../public/URL.js')
 
 const fileRouter = express.Router()
+
+// Create images directory if it doesn't exist
+const imageDir = path.join(__dirname, '../public/images')
+if (!fs.existsSync(imageDir)) {
+    fs.mkdirSync(imageDir, { recursive: true })
+}
+
 const storage = multer.diskStorage({
     destination:function(req,file,cb)
     {
@@ -13,7 +21,7 @@ const storage = multer.diskStorage({
             return cb(new Error('file not found'),null)
         }
         else{
-            return cb(null,path.join(__dirname,'../public/images'))
+            return cb(null, imageDir)
         }
     },
     filename:function(req,file,cb)
