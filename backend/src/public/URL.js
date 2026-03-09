@@ -1,1 +1,1 @@
-export const IMAGE_URL = "https://developerstinder.vercel.app/images"
+export const IMAGE_URL = "https://devtinder-full-project.onrender.com/images"
