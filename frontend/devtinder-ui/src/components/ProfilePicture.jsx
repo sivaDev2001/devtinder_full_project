@@ -27,7 +27,7 @@ const ProfilePicture = () => {
     const handleSaveImage = async () => {
         try {
             const formData = new FormData()
-            formData.append("profilepic", image)
+            formData.append("profilepicture", image)
             const res = await axios.patch(BASE_URL + '/images/upload', formData, {
                 withCredentials: true,
             })
