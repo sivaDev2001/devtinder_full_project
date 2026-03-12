@@ -11,7 +11,6 @@ authRouter.post('/signin', async (req, res) => {
         const hashedPassword = await isValidated(req) //helper function
         const { firstName, lastName, email, password, age, gender,profilepic, skills } = req.body
 
-
         if (req.body.skills?.length > 4) {
             throw new Error('more than 4 skills are not allowed')
         }

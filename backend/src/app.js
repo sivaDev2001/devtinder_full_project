@@ -82,9 +82,7 @@ app.patch('/updateuser/:email',async(req,res)=>{
     try{
 
     const userId = req.params
-    console.log(userId)
     const data = req.body
-    console.log(data)
     const ALLOWED = ["age","gender","skill","about"]
     const is_Allowed = Object.keys(data).every(k=>ALLOWED.includes(k))
     if(!is_Allowed)
