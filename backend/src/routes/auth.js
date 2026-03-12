@@ -9,7 +9,7 @@ const authRouter = express.Router()
 authRouter.post('/signin', async (req, res) => {
     try {
         const hashedPassword = await isValidated(req) //helper function
-        const { firstName, lastName, email, password, age, gender,profilepic, skills } = req.body
+        const { firstName, lastName, email, password, age, gender,profilepic, skills,about } = req.body
 
         if (req.body.skills?.length > 4) {
             throw new Error('more than 4 skills are not allowed')
@@ -22,7 +22,8 @@ authRouter.post('/signin', async (req, res) => {
             age,
             gender,
             profilepic,
-            skills
+            skills,
+            about
         })
         const cookies = await insert.getjwt()
         res.cookie("token",cookies,{
