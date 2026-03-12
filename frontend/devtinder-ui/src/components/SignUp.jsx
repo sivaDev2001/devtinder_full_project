@@ -50,7 +50,7 @@ const SignUp = () => {
         try {
             const res = await axios.post(BASE_URL + '/signin',
                 {
-                    firstName, lastName, email, password, age, gender, profilepic, about, skills
+                    firstName, lastName, email, password, age, gender, profilepic, skills, about
                 },
                 {
                     withCredentials: true
