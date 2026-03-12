@@ -33,7 +33,7 @@ fileRouter.patch('/images/upload',userauthentication,upload.single('profilepictu
         await req.user.save()
         res.status(200).json({
             message:'image uploaded',
-            data:result
+            data:profile_pic
         })
     })
     }
