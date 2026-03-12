@@ -63,7 +63,7 @@ const SignUp = () => {
                 setShowToast(false)
                 navigate('/profilePicture')
             }, 1000)
-            
+
         }
         catch (err) {
             if (err.response.data.code) {
@@ -215,7 +215,6 @@ const SignUp = () => {
                                 <legend className="fieldset-legend">About</legend>
                                 <textarea placeholder="Tell us about yourself" className="textarea textarea-secondary"
                                     value={about}
-
                                     onChange={e => setAbout(e.target.value)} />
                             </fieldset>
                         </div>
