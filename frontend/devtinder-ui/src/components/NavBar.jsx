@@ -44,7 +44,7 @@ const NavBar = () => {
                 tabIndex="-1"
                 className="menu menu-sm dropdown-content bg-base-300 rounded-box z-1 mt-4 w-52 p-2 shadow">
                 <li>
-                  <div className="flex justify-between items-center w-full">
+                  <div className="flex justify-between items-center w-full" >
                     <div>
                       <Link to="/profile">Profile</Link>
                     </div>

@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { BASE_URL } from '../utils/constants'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addUser } from '../utils/slices'
 
 
 const ProfilePicture = () => {
     const dispatch = useDispatch()
+    const userData = useSelector(state=>state.user)
     const [image, setImage] = useState(null)
     const [showToast,setShowToast] = useState(false)
     const [toastMessage,setToastMessage]= useState("")
@@ -53,7 +54,7 @@ const ProfilePicture = () => {
                         <div className="ring-primary ring-offset-base-100 w-56 rounded-full ring-2 ring-offset-2">
                             <img src={image ?
                                 URL.createObjectURL(image)
-                                : "https://img.daisyui.com/images/profile/demo/spiderperson@192.webp"} />
+                                : userData.profilepic} />
                         </div>
                     </div>
 

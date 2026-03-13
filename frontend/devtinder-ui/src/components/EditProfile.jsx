@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { addUser } from "../utils/slices"
+import { MdAddAPhoto } from "react-icons/md";
 import Toast from "./Toast"
 
 
@@ -91,6 +92,23 @@ const EditProfile = () => {
               <div className="card card-border bg-base-300 w-full md:w-96">
                 <div className="card-body">
                   <h2 className="card-title justify-center">Profile</h2>
+
+                  <div className="avatar flex flex-col items-center" onClick={()=>navigate('/profilePicture')}>
+                    <div className="relative w-56 rounded-full overflow-visible ring-primary ring-offset-base-100 ring-2 ring-offset-2">
+
+                      <img
+                        className="rounded-full"
+                        src={profilepic}
+                        alt="profile"
+                      />
+
+                      <MdAddAPhoto
+                        size={42}
+                        className="absolute top-0 right-5 text-white rounded-full p-1 cursor-pointer"
+                      />
+
+                    </div>
+                  </div>
 
                   <div className="">
                     <fieldset className="fieldset">
