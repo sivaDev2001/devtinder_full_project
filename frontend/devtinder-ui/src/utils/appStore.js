@@ -24,7 +24,7 @@ const rootReducer = combineReducers(
 const persistConfiguration = {
     key: "root",
     storage,
-    whitelist: ["user"]
+    whitelist: ["user","connections"]
 }
 const persistedReducer = persistReducer(persistConfiguration, rootReducer)
 const appStore = configureStore({

@@ -3,16 +3,18 @@ import React, { useEffect } from 'react'
 import { BASE_URL } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { addConnections } from '../utils/connections'
+import { useNavigate } from 'react-router-dom'
 
 const Connections = () => {
     const dispatchConnections = useDispatch()
     const connections = useSelector(state => state.connections)
+    const navigate = useNavigate()
     
     const fetchConnections = async () => {
         try {
             const res = await axios.get(BASE_URL + '/user/view/connections',
                 {
-                    withCredentials: true
+                withCredentials: true
                 }
             )
             dispatchConnections(addConnections(res.data.data))
@@ -74,7 +76,12 @@ const Connections = () => {
                         )}
 
                         <div className="card-actions justify-end mt-4">
-                            <button className="btn btn-primary btn-sm">Message</button>
+                            <button
+                                className="btn btn-primary btn-sm"
+                                onClick={() => navigate(`/chat/${connection._id}`)}
+                            >
+                                Message
+                            </button>
                         </div>
                     </div>
                 </div>

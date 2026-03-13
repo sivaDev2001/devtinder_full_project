@@ -13,6 +13,7 @@ import Connections from './components/Connections.jsx'
 import Requests from './components/Requests.jsx'
 import SignUp from './components/SignUp.jsx'
 import ProfilePicture from './components/ProfilePicture.jsx'
+import Chat from './components/Chat.jsx'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path='/profile' element={<Profile />} />
             <Route path='/editProfile' element={<EditProfile/>}/>
             <Route path='/connections' element={<Connections/>}/>
+            <Route path='/chat/:userId' element={<Chat/>}/>
             <Route path='/requests' element={<Requests/>}/>
             <Route path='/signup' element={<SignUp/>}/>
             <Route path='/profilePicture' element={<ProfilePicture/>}/>
