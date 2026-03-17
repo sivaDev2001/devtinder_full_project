@@ -28,8 +28,8 @@ authRouter.post('/signin', async (req, res) => {
         const cookies = await insert.getjwt()
         res.cookie("token",cookies,{
             httpOnly:true,
-            secure:true,
-            sameSite:"none"
+            secure:false,
+            sameSite:"lax"
         })
         res.json({
             message:"user registered successfully",
