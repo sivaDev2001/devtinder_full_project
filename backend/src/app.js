@@ -21,6 +21,7 @@ const PORT = process.env.PORT || 3000
 app.use(
     cors({
         origin: process.env.CORS_ORIGIN,
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true,
     })
 )
@@ -97,6 +98,7 @@ const httpServer = http.createServer(app)
 const io = new Server(httpServer, {
     cors: {
         origin: process.env.CORS_ORIGIN,
+        methods: ["GET", "POST"],
         credentials: true,
     },
 })
