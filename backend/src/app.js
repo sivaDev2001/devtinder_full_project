@@ -92,6 +92,17 @@ app.patch('/updateuser/:email', async (req, res) => {
     }
 })
 
+app.post("/webhook", (req, res) => {
+  const { exec } = require("child_process");
+
+  exec("cd ~/devtinder_full_project/backend && ./deploy.sh", (err, stdout, stderr) => {
+    console.log(stdout);
+    console.log(stderr);
+  });
+
+  res.send("Deploy triggered");
+});
+
 // create HTTP server and attach Socket.io
 const httpServer = http.createServer(app)
 
