@@ -48,6 +48,7 @@ authRouter.post('/signin', async (req, res) => {
 
 authRouter.post('/login', async (req, res) => {
     try {
+        console.log("checking log")
         const isUser = await checkCredentials(req)  //helper function
         if (isUser.checkpassword) {
             const jwtToken = await isUser.checkUser.getjwt()  //
