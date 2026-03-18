@@ -54,8 +54,8 @@ authRouter.post('/login', async (req, res) => {
             const jwtToken = await isUser.checkUser.getjwt()  //
             res.cookie("token", jwtToken,{
                 httpOnly:true,
-                secure:true,
-                sameSite:'none'
+                secure:false,
+                sameSite:'lax'
             })  //cookie that has jwttoken wrapped inside
             res.json({
                 message: "user logged-in successfully",
